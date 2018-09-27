@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bookyue.mapper.UserInfoMapper">
+  <resultMap id="BaseResultMap" type="com.bookyue.model.UserInfo">
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_wxopenid" jdbcType="VARCHAR" property="userWxopenid" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_sex" jdbcType="TINYINT" property="userSex" />
+    <result column="user_phone" jdbcType="VARCHAR" property="userPhone" />
+    <result column="user_school_id" jdbcType="SMALLINT" property="userSchoolId" />
+    <result column="user_major" jdbcType="VARCHAR" property="userMajor" />
+    <result column="user_bonus_points" jdbcType="INTEGER" property="userBonusPoints" />
+    <result column="user_type_id" jdbcType="TINYINT" property="userTypeId" />
+    <result column="user_avatar_url" jdbcType="VARCHAR" property="userAvatarUrl" />
+    <result column="user_create_time" jdbcType="TIMESTAMP" property="userCreateTime" />
+    <result column="vertify_code" jdbcType="VARCHAR" property="vertifyCode" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    user_id, user_wxopenid, user_name, user_sex, user_phone, user_school_id, user_major, 
+    user_bonus_points, user_type_id, user_avatar_url, user_create_time, vertify_code
+  </sql>
+  <select id="selectByExample" parameterType="com.bookyue.model.UserInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from user_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_info
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user_info
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.bookyue.model.UserInfoExample">
+    delete from user_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.bookyue.model.UserInfo">
+    insert into user_info (user_id, user_wxopenid, user_name, 
+      user_sex, user_phone, user_school_id, 
+      user_major, user_bonus_points, user_type_id, 
+      user_avatar_url, user_create_time, vertify_code
+      )
+    values (#{userId,jdbcType=INTEGER}, #{userWxopenid,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{userSex,jdbcType=TINYINT}, #{userPhone,jdbcType=VARCHAR}, #{userSchoolId,jdbcType=SMALLINT}, 
+      #{userMajor,jdbcType=VARCHAR}, #{userBonusPoints,jdbcType=INTEGER}, #{userTypeId,jdbcType=TINYINT}, 
+      #{userAvatarUrl,jdbcType=VARCHAR}, #{userCreateTime,jdbcType=TIMESTAMP}, #{vertifyCode,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bookyue.model.UserInfo" useGeneratedKeys="true" keyProperty="userId">
+    insert into user_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userWxopenid != null">
+        user_wxopenid,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="userSex != null">
+        user_sex,
+      </if>
+      <if test="userPhone != null">
+        user_phone,
+      </if>
+      <if test="userSchoolId != null">
+        user_school_id,
+      </if>
+      <if test="userMajor != null">
+        user_major,
+      </if>
+      <if test="userBonusPoints != null">
+        user_bonus_points,
+      </if>
+      <if test="userTypeId != null">
+        user_type_id,
+      </if>
+      <if test="userAvatarUrl != null">
+        user_avatar_url,
+      </if>
+      <if test="userCreateTime != null">
+        user_create_time,
+      </if>
+      <if test="vertifyCode != null">
+        vertify_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userWxopenid != null">
+        #{userWxopenid,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userSex != null">
+        #{userSex,jdbcType=TINYINT},
+      </if>
+      <if test="userPhone != null">
+        #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userSchoolId != null">
+        #{userSchoolId,jdbcType=SMALLINT},
+      </if>
+      <if test="userMajor != null">
+        #{userMajor,jdbcType=VARCHAR},
+      </if>
+      <if test="userBonusPoints != null">
+        #{userBonusPoints,jdbcType=INTEGER},
+      </if>
+      <if test="userTypeId != null">
+        #{userTypeId,jdbcType=TINYINT},
+      </if>
+      <if test="userAvatarUrl != null">
+        #{userAvatarUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="userCreateTime != null">
+        #{userCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="vertifyCode != null">
+        #{vertifyCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.bookyue.model.UserInfoExample" resultType="java.lang.Long">
+    select count(*) from user_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update user_info
+    <set>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userWxopenid != null">
+        user_wxopenid = #{record.userWxopenid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userSex != null">
+        user_sex = #{record.userSex,jdbcType=TINYINT},
+      </if>
+      <if test="record.userPhone != null">
+        user_phone = #{record.userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userSchoolId != null">
+        user_school_id = #{record.userSchoolId,jdbcType=SMALLINT},
+      </if>
+      <if test="record.userMajor != null">
+        user_major = #{record.userMajor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userBonusPoints != null">
+        user_bonus_points = #{record.userBonusPoints,jdbcType=INTEGER},
+      </if>
+      <if test="record.userTypeId != null">
+        user_type_id = #{record.userTypeId,jdbcType=TINYINT},
+      </if>
+      <if test="record.userAvatarUrl != null">
+        user_avatar_url = #{record.userAvatarUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userCreateTime != null">
+        user_create_time = #{record.userCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.vertifyCode != null">
+        vertify_code = #{record.vertifyCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update user_info
+    set user_id = #{record.userId,jdbcType=INTEGER},
+      user_wxopenid = #{record.userWxopenid,jdbcType=VARCHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      user_sex = #{record.userSex,jdbcType=TINYINT},
+      user_phone = #{record.userPhone,jdbcType=VARCHAR},
+      user_school_id = #{record.userSchoolId,jdbcType=SMALLINT},
+      user_major = #{record.userMajor,jdbcType=VARCHAR},
+      user_bonus_points = #{record.userBonusPoints,jdbcType=INTEGER},
+      user_type_id = #{record.userTypeId,jdbcType=TINYINT},
+      user_avatar_url = #{record.userAvatarUrl,jdbcType=VARCHAR},
+      user_create_time = #{record.userCreateTime,jdbcType=TIMESTAMP},
+      vertify_code = #{record.vertifyCode,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bookyue.model.UserInfo">
+    update user_info
+    <set>
+      <if test="userWxopenid != null">
+        user_wxopenid = #{userWxopenid,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userSex != null">
+        user_sex = #{userSex,jdbcType=TINYINT},
+      </if>
+      <if test="userPhone != null">
+        user_phone = #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userSchoolId != null">
+        user_school_id = #{userSchoolId,jdbcType=SMALLINT},
+      </if>
+      <if test="userMajor != null">
+        user_major = #{userMajor,jdbcType=VARCHAR},
+      </if>
+      <if test="userBonusPoints != null">
+        user_bonus_points = #{userBonusPoints,jdbcType=INTEGER},
+      </if>
+      <if test="userTypeId != null">
+        user_type_id = #{userTypeId,jdbcType=TINYINT},
+      </if>
+      <if test="userAvatarUrl != null">
+        user_avatar_url = #{userAvatarUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="userCreateTime != null">
+        user_create_time = #{userCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="vertifyCode != null">
+        vertify_code = #{vertifyCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bookyue.model.UserInfo">
+    update user_info
+    set user_wxopenid = #{userWxopenid,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      user_sex = #{userSex,jdbcType=TINYINT},
+      user_phone = #{userPhone,jdbcType=VARCHAR},
+      user_school_id = #{userSchoolId,jdbcType=SMALLINT},
+      user_major = #{userMajor,jdbcType=VARCHAR},
+      user_bonus_points = #{userBonusPoints,jdbcType=INTEGER},
+      user_type_id = #{userTypeId,jdbcType=TINYINT},
+      user_avatar_url = #{userAvatarUrl,jdbcType=VARCHAR},
+      user_create_time = #{userCreateTime,jdbcType=TIMESTAMP},
+      vertify_code = #{vertifyCode,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+</mapper>
