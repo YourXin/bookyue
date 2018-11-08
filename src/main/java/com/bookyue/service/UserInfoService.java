@@ -25,6 +25,14 @@ public interface UserInfoService {
 	 * @return
 	 */
 	UserInfo getBriefUserInfoByUserId(Integer userId);
+	
+	
+	/**
+	 * 根据userId获得手机号
+	 * @param userId
+	 * @return
+	 */
+	String getPhoneByUserId(Integer userId);
 
 	
 	/**

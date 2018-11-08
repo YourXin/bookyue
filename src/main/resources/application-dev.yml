@@ -1,13 +1,13 @@
 server:
   port: 8080
 spring:
-  profiles:
-    active: dev
   datasource:
     name: datasource
     url: jdbc:mysql://127.0.0.1:3306/shuyue
     username: root
     password: root
+    #username: root
+    #password: root
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.jdbc.Driver
   redis:

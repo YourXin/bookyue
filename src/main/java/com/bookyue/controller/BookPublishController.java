@@ -209,6 +209,6 @@ public class BookPublishController {
 		map.put("success", bookPublishService.updateBookPublish(bookPublish));
 		map.put("bookPublish", bookPublish);
 		return map;
-
 	}
+	
 }

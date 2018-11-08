@@ -17,10 +17,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bookyue.mapper.UserRedis;
+import com.bookyue.model.BookPublish;
 import com.bookyue.model.UserInfo;
+import com.bookyue.service.BookPublishSerivce;
 import com.bookyue.service.UserInfoService;
 import com.bookyue.util.MyStringUtil;
 import com.bookyue.util.UUIDUtil;
@@ -35,7 +38,10 @@ public class UserController {
 
 	@Autowired
 	private UserInfoService userinfoSerivce;
-
+	
+	@Autowired
+	private BookPublishSerivce bookPublishSerivce;
+	
 	@Autowired
 	private RedisTemplate<String, String> redisTemplate;
 
@@ -126,7 +132,7 @@ public class UserController {
 			// 获取一个uuid作为userId的key保存至redis
 			String sessionId = UUIDUtil.getUUIDStr();
 			// 有效时间一天
-			redisTemplate.opsForValue().set(sessionId, String.valueOf(userId), 7, TimeUnit.DAYS);
+			redisTemplate.opsForValue().set(sessionId, String.valueOf(userId), 1, TimeUnit.DAYS);
 
 			resultMap.put("success", true);
 			// resultMap.put("userId", userId);
@@ -292,6 +298,20 @@ public class UserController {
 				userinfoSerivce.update(tempUserInfo);
 				resultMap.put("success", true);
 			}
+		}
+		resultMap.put("success", false);
+		return resultMap;
+	}
+	
+	@GetMapping("getOthersPhoneByBookId")
+	public Map<String,Object> getOthersPhoneByBookId(@PathVariable("bookId") Integer bookId){
+		resultMap = new HashMap<String, Object>();
+		
+		BookPublish bookPublish = bookPublishSerivce.getByBookId(bookId);
+		if(bookPublish != null) {
+			String phone = userinfoSerivce.getPhoneByUserId(bookPublish.getUserId());
+			resultMap.put("success", true);
+			resultMap.put("phone", phone);
 		}
 		resultMap.put("success", false);
 		return resultMap;

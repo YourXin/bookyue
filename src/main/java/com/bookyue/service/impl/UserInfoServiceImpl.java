@@ -110,4 +110,10 @@ public class UserInfoServiceImpl implements UserInfoService {
 		}
 	}
 
+	@Override
+	public String getPhoneByUserId(Integer userId) {
+		// TODO Auto-generated method stub
+		return userInfoMapper.selectByPrimaryKey(userId).getUserPhone();
+	}
+
 }
