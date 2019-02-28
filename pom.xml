@@ -6,7 +6,7 @@
 
 	<groupId>com.bookyue</groupId>
 	<artifactId>bookyue</artifactId>
-	<version>0.0.5-SNAPSHOT</version>
+	<version>0.0.7-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>bookyue</name>
@@ -16,13 +16,14 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.0.0.RELEASE</version>
-		<relativePath /> <!-- lookup parent from repository -->
+		<relativePath />
 	</parent>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
+		<maven.test.skip>true</maven.test.skip>
 	</properties>
 
 	<dependencies>
@@ -63,11 +64,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
-		</dependency>
-
 		<!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
@@ -87,16 +83,31 @@
 			<artifactId>pagehelper-spring-boot-starter</artifactId>
 			<version>1.2.4</version>
 		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/commons-codec/commons-codec 加密解密 -->
-		<dependency>
-			<groupId>commons-codec</groupId>
-			<artifactId>commons-codec</artifactId>
-		</dependency>
+		<!-- <dependency> <groupId>commons-codec</groupId> <artifactId>commons-codec</artifactId> 
+			</dependency> -->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-redis</artifactId>
 		</dependency>
+
+		<!-- swagger生成接口API -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.7.0</version>
+		</dependency>
+
+		<!-- 接口API生成html文档 -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.6.1</version>
+		</dependency>
+
+
 
 		<!-- <dependency> <groupId>org.mybatis.generator</groupId> <artifactId>mybatis-generator-core</artifactId> 
 			<version>1.3.7</version> <scope>compile</scope> <optional>true</optional> 
@@ -116,41 +127,21 @@
 	</dependencies>
 
 	<build>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-maven-plugin</artifactId>
-					<configuration>
-						<!-- 没有该配置，devtools 不生效 -->
-						<fork>true</fork>
-					</configuration>
-				</plugin>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<!-- <configuration> <mainClass>com.bookyue.BookYueApplication</mainClass> 
+					<fork>true</fork> </configuration> <executions> <execution> <goals> <goal>repackage</goal> 
+					</goals> </execution> </executions> -->
+			</plugin>
 
-				<plugin>
-					<dependencies>
-						<!--此处添加一个mysql-connector-java依赖可以防止找不到jdbc Driver -->
-						<dependency>
-							<groupId>mysql</groupId>
-							<artifactId>mysql-connector-java</artifactId>
-							<version>5.1.28</version>
-							<scope>runtime</scope>
-						</dependency>
-					</dependencies>
-
-					<groupId>org.mybatis.generator</groupId>
-					<artifactId>mybatis-generator-maven-plugin</artifactId>
-					<version>1.3.7</version>
-					<executions>
-						<execution>
-							<id>Generate MyBatis Artifacts</id>
-							<goals>
-								<goal>generate</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
-			</plugins>
-		</pluginManagement>
+			<!-- <plugin> <dependencies> 此处添加一个mysql-connector-java依赖可以防止找不到jdbc Driver 
+				<dependency> <groupId>mysql</groupId> <artifactId>mysql-connector-java</artifactId> 
+				<version>5.1.28</version> <scope>runtime</scope> </dependency> </dependencies> 
+				<groupId>org.mybatis.generator</groupId> <artifactId>mybatis-generator-maven-plugin</artifactId> 
+				<version>1.3.7</version> <executions> <execution> <id>Generate MyBatis Artifacts</id> 
+				<goals> <goal>generate</goal> </goals> </execution> </executions> </plugin> -->
+		</plugins>
 	</build>
 </project>

@@ -6,6 +6,12 @@ import com.bookyue.model.BookCollect;
 import com.bookyue.model.BookCollectCustom;
 import com.github.pagehelper.PageInfo;
 
+/**
+ * 书籍收藏
+ * @author BigOrang
+ * @version 1.0
+ *
+ */
 public interface BookCollectService {
 	
 	/**

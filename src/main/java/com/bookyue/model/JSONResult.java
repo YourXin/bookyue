@@ -107,7 +107,7 @@ public class JSONResult {
 
 	/**
 	 * 
-	 * @Description: 将json结果集转化为LeeJSONResult对象
+	 * @Description: 将json结果集转化为JSONResult对象
 	 * 				需要转换的对象是一个类
 	 * @param jsonData
 	 * @param clazz

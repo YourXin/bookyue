@@ -4,6 +4,11 @@ import com.bookyue.model.BookPublish;
 import com.bookyue.model.BookPublishCustom;
 import com.github.pagehelper.PageInfo;
 
+/**
+ * 书籍信息
+ * @author BigOrang
+ * @version 1.0
+ */
 public interface BookPublishSerivce {
 
 	/**

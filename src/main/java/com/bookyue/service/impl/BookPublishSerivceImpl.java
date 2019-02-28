@@ -12,8 +12,6 @@ import com.bookyue.mapper.BookCommentMapper;
 import com.bookyue.mapper.BookPublishMapper;
 import com.bookyue.mapper.OrderInfoMapper;
 import com.bookyue.mapper.UserInfoMapper;
-import com.bookyue.model.BookCommentCustom;
-import com.bookyue.model.BookCommentExample;
 import com.bookyue.model.BookPublish;
 import com.bookyue.model.BookPublishCustom;
 import com.bookyue.model.BookPublishExample;
@@ -113,6 +111,7 @@ public class BookPublishSerivceImpl implements BookPublishSerivce {
 
 	/**
 	 * 根据bookId查询出书籍信息、发布者基本信息
+	 * <p>发布者基本信息:用户头像路径、用户名、id、性别、电话号码</p>
 	 */
 	@Override
 	public BookPublishCustom getBookPublishCustomByBookId(Integer bookId) {
@@ -131,10 +130,12 @@ public class BookPublishSerivceImpl implements BookPublishSerivce {
 			tempUserInfo.setUserName(userInfo.getUserName());
 			tempUserInfo.setUserSex(userInfo.getUserSex());
 			tempUserInfo.setUserId(userInfo.getUserId());
+			tempUserInfo.setUserPhone(userInfo.getUserPhone());
 			// 设置发布者信息
 			bookPublishCustom.setUserInfo(tempUserInfo);
 
-			List<BookCommentCustom> commentList = bookCommentMapper.selectByCommentBookId(bookId);
+//			List<BookCommentCustom> commentList = bookCommentMapper.selectByCommentBookId(bookId);
+			
 		}
 
 		return bookPublishCustom;
@@ -223,6 +224,7 @@ public class BookPublishSerivceImpl implements BookPublishSerivce {
 		if (bookPublish == null || bookPublish.getUserId() == null) {
 			return null;
 		}
+		
 		BookPublishExample bookPublishExample = new BookPublishExample();
 		bookPublishExample.createCriteria().andUserIdEqualTo(bookPublish.getUserId());
 		bookPublishExample.setOrderByClause("publish_time DESC");

@@ -4,6 +4,11 @@ import java.util.List;
 
 import com.bookyue.model.BookType;
 
+/**
+ * 书籍分类信息
+ * @author BigOrang
+ *
+ */
 public interface BookTypeSerivce {
 
 	/**

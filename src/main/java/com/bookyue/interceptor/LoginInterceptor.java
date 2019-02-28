@@ -17,7 +17,6 @@ public class LoginInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		logger.debug("preHandle()...");
-
 		String sessionId = request.getHeader("sessionId");
 		logger.debug(sessionId);
 		

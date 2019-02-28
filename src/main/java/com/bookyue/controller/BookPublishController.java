@@ -21,6 +21,9 @@ import com.bookyue.model.BookPublish;
 import com.bookyue.service.BookPublishSerivce;
 import com.bookyue.util.CheckContent;
 
+import io.swagger.annotations.ApiOperation;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
 /**
  * 书籍信息
  * 
@@ -29,6 +32,7 @@ import com.bookyue.util.CheckContent;
  */
 @RestController
 @RequestMapping(value = "/book")
+@EnableSwagger2
 public class BookPublishController {
 
 	private static Logger logger = LoggerFactory.getLogger(BookPublishController.class);
@@ -52,6 +56,7 @@ public class BookPublishController {
 	 * @return
 	 */
 	@PostMapping("/save")
+	@ApiOperation("发布新书籍信息")
 	public Map<String, Object> addBookPublish(@RequestBody BookPublish bookPublish,
 			@RequestHeader("sessionId") String sessionId) {
 		logger.debug("addBookPublish()...");
@@ -105,7 +110,6 @@ public class BookPublishController {
 	// bookPublish));
 	// return map;
 	// }
-
 	@GetMapping("/getMyBookPublishList")
 	public Map<String, Object> getMyBookPublishList(int pageNum, BookPublish bookPublish,@RequestHeader("sessionId") String sessionId) {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -122,6 +126,7 @@ public class BookPublishController {
 	 * @return
 	 */
 	@GetMapping("/search")
+	@ApiOperation("根据bookTypeId，书籍类型,搜索关键字来进行搜索查询")
 	public Map<String, Object> getBookPublishList(int pageNum, Byte bookTypeId, String keyword) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("pageInfo", bookPublishService.getBookPublishCustomList(pageNum, bookTypeId, keyword));
@@ -135,6 +140,7 @@ public class BookPublishController {
 	 * @return
 	 */
 	@GetMapping("/{bookId}")
+	@ApiOperation("通过已发布的书籍记录的bookId来获取对应的BookPublish对象")
 	public Map<String, Object> getBookPublishByBookId(@PathVariable("bookId") Integer bookId) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("bookPublish", bookPublishService.getByBookId(bookId));
@@ -142,6 +148,7 @@ public class BookPublishController {
 	}
 	
 	@GetMapping("/get2/{bookId}")
+	@ApiOperation("通过已发布的书籍记录的bookId来获取对应的BookPublishCustom对象")
 	public Map<String, Object> getFullBookPublishByBookId(@PathVariable("bookId") Integer bookId) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("bookPublishCustom", bookPublishService.getBookPublishCustomByBookId(bookId));
@@ -159,6 +166,7 @@ public class BookPublishController {
 	 * @return
 	 */
 	@GetMapping("/searchBookPublishCustomList")
+	@ApiOperation("根据关键字和书籍分类Id查询List,结果包含了用户的头像、用户名、性别数据")
 	public Map<String, Object> getBookPublishCustomList(int pageNum, Byte bookTypeId, String keyword) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("pageInfo", bookPublishService.getBookPublishCustomList(pageNum, bookTypeId, keyword));
@@ -172,6 +180,7 @@ public class BookPublishController {
 	 * @return
 	 */
 	@DeleteMapping("/delete")
+	@ApiOperation(" 通过userId和bookId删除记录")
 	public Map<String, Object> deleteByUserIdAndBookId(@RequestBody BookPublish bookPublish, @RequestHeader("sessionId") String sessionId) {
 		
 		bookPublish.setUserId(userRedis.getUserId(sessionId));
@@ -182,6 +191,7 @@ public class BookPublishController {
 	}
 
 	@GetMapping("/getByUserIdAndBookId")
+	@ApiOperation("")
 	public Map<String, Object> getByUserIdAndBookId(Integer bookId, @RequestHeader("sessionId") String sessionId) {
 		Integer userId = userRedis.getUserId(sessionId);
 		
@@ -202,6 +212,7 @@ public class BookPublishController {
 	 * @return
 	 */
 	@PutMapping("/update")
+	@ApiOperation("更新书籍数据")
 	public Map<String, Object> update(@RequestBody BookPublish bookPublish, @RequestHeader("sessionId") String sessionId) {
 		bookPublish.setUserId(userRedis.getUserId(sessionId));
 		

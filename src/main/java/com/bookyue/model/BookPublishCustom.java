@@ -50,9 +50,4 @@ public class BookPublishCustom extends BookPublish{
 		this.commentList = commentList;
 	}
 	
-	
-	
-	
-	
-	
 }

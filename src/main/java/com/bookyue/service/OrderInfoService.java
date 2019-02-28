@@ -6,6 +6,11 @@ import com.bookyue.model.OrderInfo;
 import com.bookyue.model.OrderInfoCustom;
 import com.github.pagehelper.PageInfo;
 
+/**
+ * 订单信息
+ * @author BigOrang
+ *
+ */
 public interface OrderInfoService {
 
 	/**

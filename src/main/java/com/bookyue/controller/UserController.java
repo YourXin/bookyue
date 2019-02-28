@@ -29,6 +29,7 @@ import com.bookyue.util.MyStringUtil;
 import com.bookyue.util.UUIDUtil;
 import com.bookyue.util.UserInfoUtil;
 import com.bookyue.util.VertifyCodeUtil;
+import com.github.pagehelper.util.StringUtil;
 
 @RestController
 @RequestMapping("/user")
@@ -38,10 +39,7 @@ public class UserController {
 
 	@Autowired
 	private UserInfoService userinfoSerivce;
-	
-	@Autowired
-	private BookPublishSerivce bookPublishSerivce;
-	
+
 	@Autowired
 	private RedisTemplate<String, String> redisTemplate;
 
@@ -88,7 +86,7 @@ public class UserController {
 
 				// 得到返回的userId
 				userId = userInfo.getUserId();
-				
+
 			}
 			resultMap.put("success", true);
 			resultMap.put("userId", userId);
@@ -302,18 +300,27 @@ public class UserController {
 		resultMap.put("success", false);
 		return resultMap;
 	}
-	
-	@GetMapping("getOthersPhoneByBookId")
-	public Map<String,Object> getOthersPhoneByBookId(@PathVariable("bookId") Integer bookId){
+
+//	@GetMapping("getOthersPhoneByBookId")
+//	public Map<String, Object> getOthersPhoneByBookId(@PathVariable("bookId") Integer bookId) {
+//		resultMap = new HashMap<String, Object>();
+//
+//		BookPublish bookPublish = bookPublishSerivce.getByBookId(bookId);
+//		if (bookPublish != null) {
+//			String phone = userinfoSerivce.getPhoneByUserId(bookPublish.getUserId());
+//			resultMap.put("success", true);
+//			resultMap.put("phone", phone);
+//		}
+//		resultMap.put("success", false);
+//		return resultMap;
+//	}
+
+	@GetMapping("getPhone/{userId}")
+	public Map<String, Object> getUserPhoneByUserId(@PathVariable("userId") Integer userId) {
 		resultMap = new HashMap<String, Object>();
-		
-		BookPublish bookPublish = bookPublishSerivce.getByBookId(bookId);
-		if(bookPublish != null) {
-			String phone = userinfoSerivce.getPhoneByUserId(bookPublish.getUserId());
-			resultMap.put("success", true);
-			resultMap.put("phone", phone);
-		}
-		resultMap.put("success", false);
+		String phone = userinfoSerivce.getPhoneByUserId(userId);
+		resultMap.put("success", MyStringUtil.isEmpty(phone));
+		resultMap.put("phone", phone);
 		return resultMap;
 	}
 

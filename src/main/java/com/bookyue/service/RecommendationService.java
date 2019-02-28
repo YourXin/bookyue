@@ -4,7 +4,12 @@ import com.bookyue.model.Recommendation;
 import com.github.pagehelper.PageInfo;
 
 
-
+/**
+ * 推荐消息
+ * 
+ * @author BigOrang
+ *
+ */
 public interface RecommendationService {
 
 	/**

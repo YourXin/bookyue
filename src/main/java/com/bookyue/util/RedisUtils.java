@@ -6,20 +6,22 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class RedisUtils {
-	
+
 	@Autowired
 	private RedisTemplate<String, String> redisTemplate;
-	
-	public void set(String key,String value) {
+
+	// @Autowired
+	// private StringRedisTemplate strRedis;
+
+	public void set(String key, String value) {
 		redisTemplate.opsForValue().set(key, value);
-		
+
 	}
-	
-	public void set(String key, String value,long offset) {
+
+	public void set(String key, String value, long offset) {
 		redisTemplate.opsForValue().set(key, value, offset);
 	}
-	
-	
+
 	public String get(String key) {
 		return redisTemplate.opsForValue().get(key);
 	}
